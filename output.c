@@ -624,10 +624,13 @@ void print_AddList( Action *a )
 
   for ( j = 0; j < a->num_effects; j++ ) {
     e = &(a->effects[j]);
-    for ( i = 0; i < e->num_adds; i++ ) {
+    if(0 < e->num_adds){
       printf("a");
+      print_ft_name( e->adds[0] );
+    }
+    for ( i = 1; i < e->num_adds; i++ ) {
+      printf(" ,a");
       print_ft_name( e->adds[i] );
-      printf(", ");
     }
   }
 
@@ -642,10 +645,13 @@ void print_DelList( Action *a )
 
   for ( j = 0; j < a->num_effects; j++ ){
     e = &(a->effects[j]);
-    for ( i = 0; i < e->num_dels; i++ ) {
+    if(0 < e->num_adds){
       printf("d");
+      print_ft_name( e->dels[0] );
+    }
+    for ( i = 1; i < e->num_dels; i++ ) {
+      printf(" ,d");
       print_ft_name( e->dels[i] );
-      printf(", ");
     }
   }
 }
