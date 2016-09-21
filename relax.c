@@ -1012,17 +1012,27 @@ void activate_ft( int index, int time )
         break;
       }
       if ( hit_E ) {
-        for ( i = 0; i < gnum_ef_conn; i++ ) {
-          /* Print only ops in the relaxed plan. */
-          if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
-            print_op_name_database( gef_conn[i].op );
-            printf(", ");
+        if( time == 0){ /* Comma hacking */
+          for ( i = 0 ; i < gnum_ef_conn; i++ ) {
+            /* Print only ops in the relaxed plan. */
+            if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
+              print_op_name_formated( gef_conn[i].op );
+            }
           }
         }
-        printf("\n");
+        else{
+          for ( i = 0 ; i < gnum_ef_conn; i++ ) {
+            /* Print only ops in the relaxed plan. */
+            if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
+              printf(", ");
+              print_op_name_formated( gef_conn[i].op );
+            }
+          }
+        }
       }
       time++;
     }
+    printf("\n");
     fflush( stdout );
   }
 
@@ -1033,7 +1043,6 @@ void activate_ft( int index, int time )
         /* Print only ops in the relaxed plan. */
         if ( gef_conn[i].in_plan ) {
           print_AddList( gop_conn[gef_conn[i].op].action );
-          printf(", ");
         }
       }
       printf("\n");
@@ -1041,7 +1050,6 @@ void activate_ft( int index, int time )
         /* Print only ops in the relaxed plan. */
         if ( gef_conn[i].in_plan ) {
           print_DelList( gop_conn[gef_conn[i].op].action );
-          printf(", ");
         }
       }
     }

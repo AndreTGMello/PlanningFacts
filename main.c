@@ -686,9 +686,9 @@ int main( int argc, char *argv[] )
   source_to_dest( &current_start, &ginitial_state );
   source_to_dest( &current_end, &(ggoal_agenda[0]) );
 
+  print_state_formated(current_start);
+  print_state_formated(current_end);
   get_1P(&current_start, &current_end);
-  print_state(current_start);
-  print_state(current_end);
 
   output_planner_info();
 
@@ -725,7 +725,7 @@ int main( int argc, char *argv[] )
 void output_planner_info( void )
 
 {
-
+/*
   printf( "\n\ntime spent: %7.2f seconds instantiating %d easy, %d hard action templates",
 	  gtempl_time, gnum_easy_templates, gnum_hard_mixed_operators );
   printf( "\n            %7.2f seconds reachability analysis, yielding %d facts and %d actions",
@@ -740,7 +740,7 @@ void output_planner_info( void )
 	  gtempl_time + greach_time + grelev_time + gconn_time + gsearch_time );
 
   printf("\n\n");
-
+*/
   exit( 0 );
 
   print_official_result();
