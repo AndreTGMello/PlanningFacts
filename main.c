@@ -542,7 +542,7 @@ int main( int argc, char *argv[] )
   times( &start );
   /* domain file (ops)
    */
-  if ( gcmd_line.display_info >= 1 ) {
+  if ( gcmd_line.display_info >= 199 ) {
     printf("\nff: parsing domain file");
   }
   /* it is important for the pddl language to define the domain before
@@ -551,11 +551,11 @@ int main( int argc, char *argv[] )
   load_ops_file( ops_file );
   /* problem file (facts)
    */
-  if ( gcmd_line.display_info >= 1 ) {
+  if ( gcmd_line.display_info >= 199 ) {
     printf(" ... done.\nff: parsing problem file");
   }
   load_fct_file( fct_file );
-  if ( gcmd_line.display_info >= 1 ) {
+  if ( gcmd_line.display_info >= 199 ) {
     printf(" ... done.\n\n");
   }
 
