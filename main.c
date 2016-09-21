@@ -542,7 +542,7 @@ int main( int argc, char *argv[] )
   times( &start );
   /* domain file (ops)
    */
-  if ( gcmd_line.display_info >= 199 ) {
+  if ( gcmd_line.display_info >= 1 ) {
     printf("\nff: parsing domain file");
   }
   /* it is important for the pddl language to define the domain before
@@ -551,11 +551,11 @@ int main( int argc, char *argv[] )
   load_ops_file( ops_file );
   /* problem file (facts)
    */
-  if ( gcmd_line.display_info >= 199 ) {
+  if ( gcmd_line.display_info >= 1 ) {
     printf(" ... done.\nff: parsing problem file");
   }
   load_fct_file( fct_file );
-  if ( gcmd_line.display_info >= 199 ) {
+  if ( gcmd_line.display_info >= 1 ) {
     printf(" ... done.\n\n");
   }
 
@@ -809,7 +809,7 @@ void ff_usage( void )
   printf("-p <str>    path for operator and fact file\n");
   printf("-o <str>    operator file name\n");
   printf("-f <str>    fact file name\n\n");
-  printf("-i <num>    run-time information level( preset: 1 )\n");
+  printf("-i <num>    run-time information level( preset: 0 )\n");
   printf("      0     only times\n");
   printf("      1     problem name, planning process infos\n");
   printf("    101     parsed problem data\n");
@@ -864,7 +864,7 @@ Bool process_command_line( int argc, char *argv[] )
 
   char option;
 
-  gcmd_line.display_info = 1;
+  gcmd_line.display_info = 0;
   gcmd_line.debug = 0;
 
   memset(gcmd_line.ops_file_name, 0, MAX_LENGTH);
