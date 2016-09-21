@@ -78,7 +78,7 @@
 
 
 #include <stdio.h>
-#include <string.h> 
+#include <string.h>
 #include "ff.h"
 #include "memory.h"
 #include "parse.h"
@@ -98,7 +98,7 @@
 #define PRECONDDEF_UNCORRECT       9
 #define TYPEDEF_EXPECTED          10
 #define CONSTLIST_EXPECTED        11
-#define PREDDEF_EXPECTED          12 
+#define PREDDEF_EXPECTED          12
 #define NAME_EXPECTED             13
 #define VARIABLE_EXPECTED         14
 #define ACTIONFUNCTOR_EXPECTED    15
@@ -113,7 +113,7 @@
 #define NAME_STR "name\0"
 #define VARIABLE_STR "variable\0"
 #define STANDARD_TYPE "OBJECT\0"
- 
+
 
 static char *serrmsg[] = {
   "domain definition expected",
@@ -135,7 +135,7 @@ static char *serrmsg[] = {
   "atomic formula expected",
   "effect definition expected",
   "negated atomic formula expected",
-  "requirement %s not supported by this IPP version",  
+  "requirement %s not supported by this IPP version",
   "action definition is not correct",
   NULL
 };
@@ -155,18 +155,18 @@ int supported( char *str )
 {
 
   int i;
-  char * sup[] = { ":STRIPS", ":NEGATION", ":NEGATIVE-PRECONDITIONS", ":EQUALITY",":TYPING", 
-		   ":CONDITIONAL-EFFECTS", ":DISJUNCTIVE-PRECONDITIONS", 
-		   ":EXISTENTIAL-PRECONDITIONS", ":UNIVERSAL-PRECONDITIONS", 
+  char * sup[] = { ":STRIPS", ":NEGATION", ":NEGATIVE-PRECONDITIONS", ":EQUALITY",":TYPING",
+		   ":CONDITIONAL-EFFECTS", ":DISJUNCTIVE-PRECONDITIONS",
+		   ":EXISTENTIAL-PRECONDITIONS", ":UNIVERSAL-PRECONDITIONS",
 		   ":QUANTIFIED-PRECONDITIONS", ":ADL",
-		   NULL };     
+		   NULL };
 
   for (i=0; NULL != sup[i]; i++) {
     if ( SAME == strcmp(sup[i], str) ) {
       return TRUE;
     }
   }
-  
+
   return FALSE;
 
 }
@@ -1443,15 +1443,15 @@ yyreduce:
     {
         case 2:
 #line 163 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
-  opserr( DOMDEF_EXPECTED, NULL ); 
+    {
+  opserr( DOMDEF_EXPECTED, NULL );
 }
 #line 1450 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 174 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
 }
 #line 1457 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
@@ -1468,7 +1468,7 @@ yyreduce:
 
   case 6:
 #line 188 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   gdomain_name = new_Token( strlen((yyvsp[-1].string))+1 );
   strcpy( gdomain_name, (yyvsp[-1].string));
 }
@@ -1484,7 +1484,7 @@ yyreduce:
 
   case 14:
 #line 217 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
 }
 #line 1490 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
@@ -1524,15 +1524,15 @@ yyreduce:
 
   case 18:
 #line 255 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
-  opserr( REQUIREM_EXPECTED, NULL ); 
+    {
+  opserr( REQUIREM_EXPECTED, NULL );
 }
 #line 1531 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 259 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   if ( !supported( (yyvsp[0].string) ) ) {
     opserr( NOT_SUPPORTED, (yyvsp[0].string) );
     yyerror();
@@ -1543,7 +1543,7 @@ yyreduce:
 
   case 22:
 #line 274 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   if ( !supported( (yyvsp[0].string) ) ) {
     opserr( NOT_SUPPORTED, (yyvsp[0].string) );
     yyerror();
@@ -1554,8 +1554,8 @@ yyreduce:
 
   case 24:
 #line 287 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
-  opserr( TYPEDEF_EXPECTED, NULL ); 
+    {
+  opserr( TYPEDEF_EXPECTED, NULL );
 }
 #line 1561 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
@@ -1570,8 +1570,8 @@ yyreduce:
 
   case 26:
 #line 300 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
-  opserr( CONSTLIST_EXPECTED, NULL ); 
+    {
+  opserr( CONSTLIST_EXPECTED, NULL );
 }
 #line 1577 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
@@ -1586,15 +1586,15 @@ yyreduce:
 
   case 28:
 #line 315 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
-  opserr( ACTION, NULL ); 
+    {
+  opserr( ACTION, NULL );
 }
 #line 1593 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
 #line 319 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   scur_op = new_PlOperator( (yyvsp[0].string) );
 }
 #line 1601 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
@@ -1604,15 +1604,15 @@ yyreduce:
 #line 323 "scan-ops_pddl.y" /* yacc.c:1646  */
     {
   scur_op->next = gloaded_ops;
-  gloaded_ops = scur_op; 
+  gloaded_ops = scur_op;
 }
 #line 1610 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
 #line 333 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
-  scur_op->params = NULL; 
+    {
+  scur_op->params = NULL;
 }
 #line 1618 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
@@ -1623,7 +1623,7 @@ yyreduce:
   TypedList *tl;
   scur_op->parse_params = (yyvsp[-1].pTypedList);
   for (tl = scur_op->parse_params; tl; tl = tl->next) {
-    /* to be able to distinguish params from :VARS 
+    /* to be able to distinguish params from :VARS
      */
     scur_op->number_of_real_params++;
   }
@@ -1636,11 +1636,11 @@ yyreduce:
     {
   TypedList *tl = NULL;
 
-  /* add vars as parameters 
+  /* add vars as parameters
    */
   if ( scur_op->parse_params ) {
     for( tl = scur_op->parse_params; tl->next; tl = tl->next ) {
-      /* empty, get to the end of list 
+      /* empty, get to the end of list
        */
     }
     tl->next = (yyvsp[-2].pTypedList);
@@ -1654,23 +1654,23 @@ yyreduce:
 
   case 35:
 #line 373 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
-  scur_op->preconds = (yyvsp[0].pPlNode); 
+    {
+  scur_op->preconds = (yyvsp[0].pPlNode);
 }
 #line 1661 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
 #line 379 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
-  scur_op->effects = (yyvsp[0].pPlNode); 
+    {
+  scur_op->effects = (yyvsp[0].pPlNode);
 }
 #line 1669 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
 #line 394 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   if ( sis_negated ) {
     (yyval.pPlNode) = new_PlNode(NOT);
     (yyval.pPlNode)->sons = new_PlNode(ATOM);
@@ -1686,7 +1686,7 @@ yyreduce:
 
   case 40:
 #line 407 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   (yyval.pPlNode) = new_PlNode(AND);
   (yyval.pPlNode)->sons = (yyvsp[-1].pPlNode);
 }
@@ -1695,7 +1695,7 @@ yyreduce:
 
   case 41:
 #line 413 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   (yyval.pPlNode) = new_PlNode(OR);
   (yyval.pPlNode)->sons = (yyvsp[-1].pPlNode);
 }
@@ -1704,7 +1704,7 @@ yyreduce:
 
   case 42:
 #line 419 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   (yyval.pPlNode) = new_PlNode(NOT);
   (yyval.pPlNode)->sons = (yyvsp[-1].pPlNode);
 }
@@ -1713,7 +1713,7 @@ yyreduce:
 
   case 43:
 #line 425 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   PlNode *np = new_PlNode(NOT);
   np->sons = (yyvsp[-2].pPlNode);
   np->next = (yyvsp[-1].pPlNode);
@@ -1726,7 +1726,7 @@ yyreduce:
 
   case 44:
 #line 437 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
 
   PlNode *pln;
 
@@ -1742,7 +1742,7 @@ yyreduce:
 
   case 45:
 #line 452 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
 
   PlNode *pln;
 
@@ -1775,7 +1775,7 @@ yyreduce:
 
   case 48:
 #line 487 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   if ( sis_negated ) {
     (yyval.pPlNode) = new_PlNode(NOT);
     (yyval.pPlNode)->sons = new_PlNode(ATOM);
@@ -1791,7 +1791,7 @@ yyreduce:
 
   case 49:
 #line 500 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   (yyval.pPlNode) = new_PlNode(AND);
   (yyval.pPlNode)->sons = (yyvsp[-1].pPlNode);
 }
@@ -1800,7 +1800,7 @@ yyreduce:
 
   case 50:
 #line 508 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
 
   PlNode *pln;
 
@@ -1823,7 +1823,7 @@ yyreduce:
    *  [sons]
    *   /  \
    * [p]  [q]
-   * That means, the first son is p, and the second one is q. 
+   * That means, the first son is p, and the second one is q.
    */
   (yyval.pPlNode) = new_PlNode(WHEN);
   (yyvsp[-2].pPlNode)->next = (yyvsp[-1].pPlNode);
@@ -1834,8 +1834,8 @@ yyreduce:
 
   case 52:
 #line 539 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
-  (yyval.pPlNode) = NULL; 
+    {
+  (yyval.pPlNode) = NULL;
 }
 #line 1841 "scan-ops_pddl.tab.c" /* yacc.c:1646  */
     break;
@@ -1851,7 +1851,7 @@ yyreduce:
 
   case 54:
 #line 556 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   (yyval.pTokenList) = (yyvsp[-1].pTokenList);
   sis_negated = TRUE;
 }
@@ -1868,7 +1868,7 @@ yyreduce:
 
   case 56:
 #line 571 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   (yyval.pTokenList) = new_TokenList();
   (yyval.pTokenList)->item = (yyvsp[-2].pstring);
   (yyval.pTokenList)->next = (yyvsp[-1].pTokenList);
@@ -1905,7 +1905,7 @@ yyreduce:
 
   case 60:
 #line 604 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   (yyval.pstring) = new_Token( strlen((yyvsp[0].string))+1 );
   strcpy( (yyval.pstring), (yyvsp[0].string) );
 }
@@ -1914,7 +1914,7 @@ yyreduce:
 
   case 61:
 #line 610 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   (yyval.pstring) = new_Token( strlen((yyvsp[0].string))+1 );
   strcpy( (yyval.pstring), (yyvsp[0].string) );
 }
@@ -1944,7 +1944,7 @@ yyreduce:
 
   case 64:
 #line 639 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   (yyval.pstring) = new_Token( strlen((yyvsp[0].string))+1 );
   strcpy( (yyval.pstring), (yyvsp[0].string) );
 }
@@ -1959,7 +1959,7 @@ yyreduce:
 
   case 66:
 #line 652 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
 
   (yyval.pTypedList) = new_TypedList();
   (yyval.pTypedList)->name = new_Token( strlen((yyvsp[-4].string))+1 );
@@ -2010,7 +2010,7 @@ yyreduce:
 
   case 70:
 #line 695 "scan-ops_pddl.y" /* yacc.c:1646  */
-    { 
+    {
   (yyval.pTypedList) = new_TypedList();
   (yyval.pTypedList)->name = new_Token( strlen((yyvsp[-4].string))+1 );
   strcpy( (yyval.pTypedList)->name, (yyvsp[-4].string) );
@@ -2290,7 +2290,7 @@ yyreturn:
  * Functions
  **********************************************************************/
 
-/* 
+/*
  * call	bison -pops -bscan-ops scan-ops.y
  */
 
@@ -2311,7 +2311,7 @@ void opserr( int errno, char *par )
 /*   } */
 
 }
-  
+
 
 
 int yyerror( char *msg )
@@ -2319,7 +2319,7 @@ int yyerror( char *msg )
 {
 
   fflush(stdout);
-  fprintf(stderr, "\n%s: syntax error in line %d, '%s':\n", 
+  fprintf(stderr, "\n%s: syntax error in line %d, '%s':\n",
 	  gact_filename, lineno, yytext);
 
   if ( NULL != sact_err_par ) {
@@ -2341,7 +2341,7 @@ void load_ops_file( char *filename )
   FILE * fp;/* pointer to input files */
   char tmp[MAX_LENGTH] = "";
 
-  /* open operator file 
+  /* open operator file
    */
   if( ( fp = fopen( filename, "r" ) ) == NULL ) {
     sprintf(tmp, "\nff: can't find operator file: %s\n\n", filename );
@@ -2350,7 +2350,7 @@ void load_ops_file( char *filename )
   }
 
   gact_filename = filename;
-  lineno = 1; 
+  lineno = 1;
   yyin = fp;
 
   yyparse();
