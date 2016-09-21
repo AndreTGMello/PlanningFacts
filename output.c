@@ -629,7 +629,7 @@ void print_AddList( Action *a )
       print_ft_name( e->adds[0] );
     }
     for ( i = 1; i < e->num_adds; i++ ) {
-      printf(" ,a");
+      printf(", a");
       print_ft_name( e->adds[i] );
     }
   }
@@ -650,13 +650,29 @@ void print_DelList( Action *a )
       print_ft_name( e->dels[0] );
     }
     for ( i = 1; i < e->num_dels; i++ ) {
-      printf(" ,d");
+      printf(", d");
       print_ft_name( e->dels[i] );
     }
   }
 }
 
-void print_op_name_database( int index )
+void print_state_formated( State S )
+
+{
+
+  int i;
+  if(0 < S.num_F){
+    print_ft_name( S.F[i] );
+  }
+  for ( i = 0; i < S.num_F; i++ ) {
+    printf(", ");
+    print_ft_name( S.F[i] );
+  }
+  printf("\n");
+
+}
+
+void print_op_name_formated( int index )
 
 {
 
@@ -668,10 +684,13 @@ void print_op_name_database( int index )
     printf("REACH-GOAL");
   } else {
     printf("%s(", a->name );
-    for ( i = 0; i < a->num_name_vars; i++ ) {
-      printf("%s,", gconstants[a->name_inst_table[i]]);
+    if(0 < a->num_name_vars){
+      printf("%s", gconstants[a->name_inst_table[0]]);
     }
-    printf("), ");
+    for ( i = 1; i < a->num_name_vars; i++ ) {
+      printf(", %s", gconstants[a->name_inst_table[i]]);
+    }
+    printf(")");
   }
 
 }
