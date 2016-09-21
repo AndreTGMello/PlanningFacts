@@ -681,38 +681,14 @@ int main( int argc, char *argv[] )
   current_end.max_F = gnum_ft_conn;
   initialize_relax();
 
-
   source_to_dest( &(gplan_states[0]), &ginitial_state );
 
   source_to_dest( &current_start, &ginitial_state );
   source_to_dest( &current_end, &(ggoal_agenda[0]) );
 
-  for ( i = 0; i < gnum_goal_agenda; i++ ) {
-    if ( !do_enforced_hill_climbing( &current_start, &current_end ) ) {
-      break;
-    }
-    source_to_dest( &current_start, &(gplan_states[gnum_plan_ops]) );
-    if ( i < gnum_goal_agenda - 1 ) {
-      for ( j = 0; j < ggoal_agenda[i+1].num_F; j++ ) {
-	current_end.F[current_end.num_F++] = ggoal_agenda[i+1].F[j];
-      }
-    }
-  }
-  found_plan = ( i == gnum_goal_agenda ) ? TRUE : FALSE;
-
-  if ( !found_plan ) {
-    printf("\n\nEnforced Hill-climbing failed !");
-    printf("\nswitching to Best-first Search now.\n");
-    fflush(stdout);
-    found_plan = do_best_first_search();
-  }
-
-  times( &end );
-  TIME( gsearch_time );
-
-  if ( found_plan ) {
-    print_plan();
-  }
+  get_1P(&current_start, &current_end);
+  print_state(current_start);
+  print_state(current_end);
 
   output_planner_info();
 

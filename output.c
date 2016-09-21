@@ -614,7 +614,66 @@ void print_Action( Action *a )
 
 }
 
+/* TEST */
+void print_AddList( Action *a )
 
+{
+
+  ActionEffect *e;
+  int i, j;
+
+  printf("\n\nEffects:");
+  for ( j = 0; j < a->num_effects; j++ ) {
+    for ( i = 0; i < e->num_adds; i++ ) {
+      printf("a");
+      print_ft_name( e->adds[i] );
+      printf(", ");
+    }
+    printf("\nDels\n");
+    for ( i = 0; i < e->num_dels; i++ ) {
+      print_ft_name( e->dels[i] );
+      printf("\n");
+    }
+  }
+
+}
+
+void print_DelList( Action *a )
+
+{
+
+  ActionEffect *e;
+  int i, j;
+
+  for ( j = 0; j < a->num_effects; j++ )
+    for ( i = 0; i < e->num_dels; i++ ) {
+      printf("d");
+      print_ft_name( e->dels[i] );
+      printf(", ");
+    }
+  }
+
+
+void print_op_name_database( int index )
+
+{
+
+  int i;
+  Action *a = gop_conn[index].action;
+
+  if ( !a->norm_operator &&
+       !a->pseudo_action ) {
+    printf("REACH-GOAL");
+  } else {
+    printf("%s(", a->name );
+    for ( i = 0; i < a->num_name_vars; i++ ) {
+      printf("%s,", gconstants[a->name_inst_table[i]]);
+    }
+    printf("), ");
+  }
+
+}
+/* TEST */
 
 void print_type( int t )
 
@@ -691,7 +750,8 @@ void print_Fact( Fact *f )
     return;
   }
 
-  printf("%s(", gpredicates[f->predicate]);
+  printf ("(");
+  printf("%s ", gpredicates[f->predicate]);
   for ( j=0; j<garity[f->predicate]; j++ ) {
     if ( f->args[j] >= 0 ) {
       printf("%s", gconstants[(f->args)[j]]);
@@ -763,10 +823,12 @@ void print_plan( void )
   printf("\n\nff: found legal plan as follows");
   printf("\n\nstep ");
   for ( i = 0; i < gnum_plan_ops; i++ ) {
+
+/*
     printf("\n\nnstate:");
      print_state(gplan_states[i]);
 
-/*
+
      printf("\n\nprec:");
      ef = gop_conn[gplan_ops[i]].E[0];
      for ( j =0; j < gef_conn[ef].num_PC; j++ ) {
@@ -777,6 +839,7 @@ void print_plan( void )
     printf("%4d: ", i);
     print_op_name( gplan_ops[i] );
     printf("\n     ");
+
   }
 
 }
