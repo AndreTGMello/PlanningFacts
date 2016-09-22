@@ -692,7 +692,19 @@ void print_op_name_formated( int index )
     }
     printf(")");
   }
+}
 
+void print_goal_states(State S){
+  int i;
+  if(0 < S.num_F){
+    printf("g");
+    print_ft_name( S.F[i] );
+  }
+  for ( i = 1; i < S.num_F; i++ ) {
+    printf(", g");
+    print_ft_name( S.F[i] );
+  }
+  printf("\n");
 }
 /* TEST */
 

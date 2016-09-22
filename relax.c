@@ -996,9 +996,6 @@ void activate_ft( int index, int time )
 
     print_relaxed_plan();
     print_AddDel();
-
-    next_current_start(S, num_state);
-
     reset_fixpoint();
 
     return h;
@@ -1030,7 +1027,7 @@ void activate_ft( int index, int time )
       if ( hit_E ) {
         /* Comma haking */
         /* Print only ops in the relaxed plan. */
-         if(time == 0){
+        if(time == 0){
           i = 0;
           while( i < gnum_ef_conn ){
             if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
@@ -1054,7 +1051,7 @@ void activate_ft( int index, int time )
               print_op_name_formated( gef_conn[i].op );
             }
           }
-        time++;
+          time++;
         }
       }
     }
@@ -1096,31 +1093,33 @@ void activate_ft( int index, int time )
         print_DelList( gop_conn[gef_conn[i].op].action );
       }
     }
+    printf("\n");
   }
 
   void print_current_goal_on_start(State current_start, State current_end){
-    int i, j;
-    for ( i = 0; i < gnum_goal_agenda; i++ ) {
-      if ( i < gnum_goal_agenda - 1 ) {
-        for ( j = 0; j < current_start.num_F; j++ ) {
-          if( current_end.F[i] == current_start.F[j] ){
-            print_ft_name(current_start.F);
-          }
+    int i, j, stop;
+    i = 0;
+    j = 0;
+    stop = 1;
+    while( i < gnum_goal_agenda && stop == 1 ) {
+      while ( j < current_start.num_F ) {
+        if( current_end.F[i] == current_start.F[j] ){
+          printf("c");
+          print_ft_name(current_start.F[j]);
+          stop = 0;
+          break;
         }
+        j++;
       }
+      i++;
     }
-  }
-
-  void next_current_start(State *S, int num_state){
-    int i;
-    make_state(S, gnum_ft_conn);
-    State new_start = *S;
-    new_start.max_F = gnum_ft_conn;
-
-    for ( i = 0; i < gnum_ft_conn; i++ ) {
-      if ( gft_conn[i].level == num_state ) {
-        new_start.F[new_start.num_F] = i;
-        new_start.num_F++;
+    for ( i; i < gnum_goal_agenda; i++ ) {
+      for ( j = 0; j < current_start.num_F; j++ ) {
+        if( current_end.F[i] == current_start.F[j] ){
+          printf(", c");
+          print_ft_name(current_start.F[j]);
+          break;
+        }
       }
     }
   }
