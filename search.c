@@ -8,32 +8,32 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  *********************************************************************/
 
 
 /*
- * THIS SOURCE CODE IS SUPPLIED  ``AS IS'' WITHOUT WARRANTY OF ANY KIND, 
- * AND ITS AUTHOR AND THE JOURNAL OF ARTIFICIAL INTELLIGENCE RESEARCH 
- * (JAIR) AND JAIR'S PUBLISHERS AND DISTRIBUTORS, DISCLAIM ANY AND ALL 
+ * THIS SOURCE CODE IS SUPPLIED  ``AS IS'' WITHOUT WARRANTY OF ANY KIND,
+ * AND ITS AUTHOR AND THE JOURNAL OF ARTIFICIAL INTELLIGENCE RESEARCH
+ * (JAIR) AND JAIR'S PUBLISHERS AND DISTRIBUTORS, DISCLAIM ANY AND ALL
  * WARRANTIES, INCLUDING BUT NOT LIMITED TO ANY IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, AND
  * ANY WARRANTIES OR NON INFRINGEMENT.  THE USER ASSUMES ALL LIABILITY AND
  * RESPONSIBILITY FOR USE OF THIS SOURCE CODE, AND NEITHER THE AUTHOR NOR
- * JAIR, NOR JAIR'S PUBLISHERS AND DISTRIBUTORS, WILL BE LIABLE FOR 
- * DAMAGES OF ANY KIND RESULTING FROM ITS USE.  Without limiting the 
+ * JAIR, NOR JAIR'S PUBLISHERS AND DISTRIBUTORS, WILL BE LIABLE FOR
+ * DAMAGES OF ANY KIND RESULTING FROM ITS USE.  Without limiting the
  * generality of the foregoing, neither the author, nor JAIR, nor JAIR's
- * publishers and distributors, warrant that the Source Code will be 
- * error-free, will operate without interruption, or will meet the needs 
+ * publishers and distributors, warrant that the Source Code will be
+ * error-free, will operate without interruption, or will meet the needs
  * of the user.
  */
 
@@ -62,7 +62,7 @@
  *
  * Author: Joerg Hoffmann 2000
  *
- *********************************************************************/ 
+ *********************************************************************/
 
 
 
@@ -128,7 +128,7 @@ Bool lchanged_ehc_entry[EHC_HASH_SIZE];
 
 
 
-/* memory (hash table) for states that are already 
+/* memory (hash table) for states that are already
  * encountered by current serial plan
  */
 PlanHashEntry_pointer lplan_hash_entry[PLAN_HASH_SIZE];
@@ -189,10 +189,10 @@ Bool do_enforced_hill_climbing( State *start, State *end )
      * of the previous calls
      */
     hash_plan_state( start, 0 );
-    
+
     lehc_space_head = new_EhcNode();
     lehc_space_end = lehc_space_head;
-    
+
     for ( i = 0; i < EHC_HASH_SIZE; i++ ) {
       lehc_hash_entry[i] = NULL;
       lnum_ehc_hash_entry[i] = 0;
@@ -200,7 +200,7 @@ Bool do_enforced_hill_climbing( State *start, State *end )
     }
     lnum_changed_ehc_entrys = 0;
 
-    make_state( &S, gnum_ft_conn ); 
+    make_state( &S, gnum_ft_conn );
     S.max_F = gnum_ft_conn;
     make_state( &S_, gnum_ft_conn );
     S_.max_F = gnum_ft_conn;
@@ -210,11 +210,11 @@ Bool do_enforced_hill_climbing( State *start, State *end )
 
     first_call = FALSE;
   }
-  
+
   /* start enforced Hill-climbing
    */
 
-  source_to_dest( &lcurrent_goals, end );  
+  source_to_dest( &lcurrent_goals, end );
 
   source_to_dest( &S, start );
   h = get_1P_and_H( &S, &lcurrent_goals );
@@ -224,7 +224,7 @@ Bool do_enforced_hill_climbing( State *start, State *end )
   }
   if ( h == 0 ) {
     return TRUE;
-  }  
+  }
   printf("\n\nCueing down from goal distance: %4d into depth ", h);
   fflush(stdout);
 
@@ -298,7 +298,7 @@ Bool search_for_better_state( State *S, int h, State *S_, int *h_ )
   }
   lehc_current_start = lehc_space_head->next;
 
-  while ( TRUE ) {  
+  while ( TRUE ) {
     if ( lehc_current_start == lehc_current_end ) {
       reset_ehc_hash_entrys();
       free( tmp );
@@ -382,7 +382,7 @@ int expand_first_node( int h )
   }
 
   h_ = get_1P_and_H( &(lehc_current_start->S), &lcurrent_goals );
-    
+
   if ( h_ == INFINITY ) {
     lehc_current_start = lehc_current_start->next;
     return h_;
@@ -402,7 +402,7 @@ int expand_first_node( int h )
     g = result_to_dest( &S_, &(lehc_current_start->S), gH[i] );
     add_to_ehc_space( &S_, gH[i], lehc_current_start, g );
   }
-    
+
   lehc_current_start = lehc_current_start->next;
 
   return h_;
@@ -492,7 +492,7 @@ void hash_ehc_node( EhcNode *n )
     lchanged_ehc_entry[index] = TRUE;
   }
   return;
-      
+
 }
 
 
@@ -525,7 +525,7 @@ Bool ehc_state_hashed( State *S )
 
 
 
-Bool same_state( State *S1, State *S2 ) 
+Bool same_state( State *S1, State *S2 )
 
 {
 
@@ -707,9 +707,9 @@ PlanHashEntry *hash_plan_state( State *S, int step )
   return tmp;
 
 }
-  
 
- 
+
+
 PlanHashEntry *plan_state_hashed( State *S )
 
 {
@@ -910,14 +910,14 @@ void add_to_bfs_space( State *S, int op, BfsNode *father )
   new->op = op;
   new->h = h;
   new->father = father;
-  
+
   new->next = i->next;
   new->prev = i;
   i->next = new;
   if ( new->next ) {
     new->next->prev = new;
   }
-  
+
   hash_bfs_node( new );
 
 }
@@ -1002,7 +1002,7 @@ void hash_bfs_node( BfsNode *n )
   tmp->sum = sum;
   tmp->bfs_node = n;
   h->next = tmp;
-      
+
 }
 
 
@@ -1074,7 +1074,7 @@ int result_to_dest( State *dest, State *source, int op )
 
   int i, j, ef;
   int r = -1;
-  
+
   if ( first_call ) {
     in_source = ( Bool * ) calloc( gnum_ft_conn, sizeof( Bool ) );
     in_dest = ( Bool * ) calloc( gnum_ft_conn, sizeof( Bool ) );
@@ -1129,7 +1129,7 @@ int result_to_dest( State *dest, State *source, int op )
     in_dest[source->F[i]] = TRUE;
   }
 
-  /* now, finally, add all fullfilled effect adds to dest; 
+  /* now, finally, add all fullfilled effect adds to dest;
    * each fact at most once!
    */
   for ( i = 0; i < gop_conn[op].num_E; i++ ) {
@@ -1216,7 +1216,7 @@ void print_state( State S )
 {
 
   int i;
-  
+
   for ( i = 0; i < S.num_F; i++ ) {
     printf("\n");
     print_ft_name( S.F[i] );

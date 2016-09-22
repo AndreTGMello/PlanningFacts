@@ -7,32 +7,32 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- * 
+ *
  *********************************************************************/
 
 
 /*
- * THIS SOURCE CODE IS SUPPLIED  ``AS IS'' WITHOUT WARRANTY OF ANY KIND, 
- * AND ITS AUTHOR AND THE JOURNAL OF ARTIFICIAL INTELLIGENCE RESEARCH 
- * (JAIR) AND JAIR'S PUBLISHERS AND DISTRIBUTORS, DISCLAIM ANY AND ALL 
+ * THIS SOURCE CODE IS SUPPLIED  ``AS IS'' WITHOUT WARRANTY OF ANY KIND,
+ * AND ITS AUTHOR AND THE JOURNAL OF ARTIFICIAL INTELLIGENCE RESEARCH
+ * (JAIR) AND JAIR'S PUBLISHERS AND DISTRIBUTORS, DISCLAIM ANY AND ALL
  * WARRANTIES, INCLUDING BUT NOT LIMITED TO ANY IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, AND
  * ANY WARRANTIES OR NON INFRINGEMENT.  THE USER ASSUMES ALL LIABILITY AND
  * RESPONSIBILITY FOR USE OF THIS SOURCE CODE, AND NEITHER THE AUTHOR NOR
- * JAIR, NOR JAIR'S PUBLISHERS AND DISTRIBUTORS, WILL BE LIABLE FOR 
- * DAMAGES OF ANY KIND RESULTING FROM ITS USE.  Without limiting the 
+ * JAIR, NOR JAIR'S PUBLISHERS AND DISTRIBUTORS, WILL BE LIABLE FOR
+ * DAMAGES OF ANY KIND RESULTING FROM ITS USE.  Without limiting the
  * generality of the foregoing, neither the author, nor JAIR, nor JAIR's
- * publishers and distributors, warrant that the Source Code will be 
- * error-free, will operate without interruption, or will meet the needs 
+ * publishers and distributors, warrant that the Source Code will be
+ * error-free, will operate without interruption, or will meet the needs
  * of the user.
  */
 
@@ -57,7 +57,7 @@
  *
  * Author: Joerg Hoffmann 1999
  *
- *********************************************************************/ 
+ *********************************************************************/
 
 
 
@@ -123,9 +123,9 @@ void compute_goal_agenda( void )
 {
 
   int i;
-  int max = gnum_ef_conn > gnum_ft_conn ? 
+  int max = gnum_ef_conn > gnum_ft_conn ?
     gnum_ef_conn : gnum_ft_conn;
-  
+
   /* initialization stuff
    */
   lch = ( int * ) calloc( max, sizeof( int ) );
@@ -141,7 +141,7 @@ void compute_goal_agenda( void )
 
   /* False sets
    */
-  for ( i = 0; i < ggoal_state.num_F; i++ ) { 
+  for ( i = 0; i < ggoal_state.num_F; i++ ) {
     build_False_set( ggoal_state.F[i] );
   }
 
@@ -196,7 +196,7 @@ void build_False_set( int ft )
 	lch[lnum_ch++] = ft_;
 	lin_ch[ft_] = TRUE;
       }
-    } 
+    }
     for ( j = 0; j < gef_conn[ef].num_I; j++ ) {
       ef_ = gef_conn[ef].I[j];
       count++;
@@ -245,7 +245,7 @@ void build_False_set( int ft )
   }
 
 }
- 
+
 
 
 
@@ -483,7 +483,7 @@ void build_goal_agenda( void )
       }
     }
   }
-  
+
   /* count in - and outgoing edges, know those
    * goals that are not connected at all
    */
@@ -533,7 +533,7 @@ void build_goal_agenda( void )
 	 ( hits[slot[i]] == 0 && hits[slot[i-1]] != 0 ) ) {
       ggoal_agenda[entry].num_F = 0;
       for ( j = start; j < i; j++ ) {
-	ggoal_agenda[entry].F[ggoal_agenda[entry].num_F++] = 
+	ggoal_agenda[entry].F[ggoal_agenda[entry].num_F++] =
 	  ggoal_state.F[slot[j]];
       }
       entry++;
@@ -542,7 +542,7 @@ void build_goal_agenda( void )
   }
   ggoal_agenda[entry].num_F = 0;
   for ( i = start; i < n; i++ ) {
-    ggoal_agenda[entry].F[ggoal_agenda[entry].num_F++] = 
+    ggoal_agenda[entry].F[ggoal_agenda[entry].num_F++] =
       ggoal_state.F[slot[i]];
   }
   entry++;
@@ -570,5 +570,3 @@ void build_goal_agenda( void )
   }
 
 }
-
-

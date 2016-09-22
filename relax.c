@@ -996,6 +996,7 @@ void activate_ft( int index, int time )
 
     print_relaxed_plan();
     print_AddDel();
+
     next_current_start(S, num_state);
 
     reset_fixpoint();
@@ -1111,34 +1112,15 @@ void activate_ft( int index, int time )
   }
 
   void next_current_start(State *S, int num_state){
-    int i, j;
-    j = 0;
-    Bool hit, hit_F;
+    int i;
     make_state(S, gnum_ft_conn);
     State new_start = *S;
     new_start.max_F = gnum_ft_conn;
 
-    while ( 1 ) {
-      hit = FALSE;
-      hit_F = FALSE;
-      for ( i = 0; i < gnum_ft_conn; i++ ) {
-        if ( gft_conn[i].level == num_state ) {
-          hit = TRUE;
-          hit_F = TRUE;
-          break;
-        }
-      }
-      if ( !hit ) {
-        break;
-      }
-      if ( hit_F ) {
-        for ( i = 0; i < gnum_ft_conn; i++ ) {
-          if ( gft_conn[i].level == num_state ) {
-            new_start.F[j] = i;
-            j++;
-            printf("%d\n", new_start.F[j]);
-          }
-        }
+    for ( i = 0; i < gnum_ft_conn; i++ ) {
+      if ( gft_conn[i].level == num_state ) {
+        new_start.F[new_start.num_F] = i;
+        new_start.num_F++;
       }
     }
   }

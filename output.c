@@ -771,7 +771,6 @@ void print_Fact( Fact *f )
     return;
   }
 
-/* REMOVE NOT-? */
   printf ("(");
   printf("%s", gpredicates[f->predicate]);
   for ( j=0; j<garity[f->predicate]; j++ ) {

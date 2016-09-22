@@ -668,42 +668,61 @@ int main( int argc, char *argv[] )
     * goal set into sequence of smaller sets, the goal agenda
     */
     compute_goal_agenda();
-    int test = 0;
-    while(test < 7){
-      /* make space in plan states info, and relax
-      */
-      for ( i = 0; i < MAX_PLAN_LENGTH + 1; i++ ) {
-        make_state( &(gplan_states[i]), gnum_ft_conn );
-        gplan_states[i].max_F = gnum_ft_conn;
-      }
-      make_state( &current_start, gnum_ft_conn );
-      current_start.max_F = gnum_ft_conn;
-      make_state( &current_end, gnum_ft_conn );
-      current_end.max_F = gnum_ft_conn;
-      initialize_relax();
 
-      source_to_dest( &(gplan_states[0]), &ginitial_state );
+    /* make space in plan states info, and relax
+    */
+    for ( i = 0; i < MAX_PLAN_LENGTH + 1; i++ ) {
+      make_state( &(gplan_states[i]), gnum_ft_conn );
+      gplan_states[i].max_F = gnum_ft_conn;
+    }
+    make_state( &current_start, gnum_ft_conn );
+    current_start.max_F = gnum_ft_conn;
+    make_state( &current_end, gnum_ft_conn );
+    current_end.max_F = gnum_ft_conn;
+    initialize_relax();
 
-      source_to_dest( &current_start, &ginitial_state );
-      source_to_dest( &current_end, &(ggoal_agenda[0]) );
+    source_to_dest( &(gplan_states[0]), &ginitial_state );
 
-      /* PROBLEM: MULTIPLE INITIAL AND END STATES */
-      for ( i = 0; i < gnum_goal_agenda; i++ ) {
-        source_to_dest( &current_start, &(gplan_states[gnum_plan_ops]) );
-        if ( i < gnum_goal_agenda - 1 ) {
-          for ( j = 0; j < ggoal_agenda[i+1].num_F; j++ ) {
-            current_end.F[current_end.num_F++] = ggoal_agenda[i+1].F[j];
-          }
+    source_to_dest( &current_start, &ginitial_state );
+    source_to_dest( &current_end, &(ggoal_agenda[0]) );
+
+/*
+    for ( i = 0; i < gnum_goal_agenda; i++ ) {
+      source_to_dest( &current_start, &(gplan_states[gnum_plan_ops]) );
+      if ( i < gnum_goal_agenda - 1 ) {
+        for ( j = 0; j < ggoal_agenda[i+1].num_F; j++ ) {
+          current_end.F[current_end.num_F++] = ggoal_agenda[i+1].F[j];
         }
       }
-      print_state_formated(current_start);
+    }
+*/
+/*TEST*/
+    for ( i = 0; i < gnum_goal_agenda; i++ ) {
+      if ( !do_enforced_hill_climbing( &current_start, &current_end ) ) {
+        break;
+      }
+      source_to_dest( &current_start, &(gplan_states[gnum_plan_ops]) );
+      if ( i < gnum_goal_agenda - 1 ) {
+        for ( j = 0; j < ggoal_agenda[i+1].num_F; j++ ) {
+  	current_end.F[current_end.num_F++] = ggoal_agenda[i+1].F[j];
+        }
+      }
+    }
+    found_plan = ( i == gnum_goal_agenda ) ? TRUE : FALSE;
+
+    if ( !found_plan ) {
+      found_plan = do_best_first_search();
+    }
+/*TEST*/
+
+    int current_state = 0;
+    int h = -1;
+    while(h != 0){
+      print_state_formated(gplan_states[current_state]);
       print_state_formated(current_end);
-      get_relaxed_plan(&current_start, &current_end, test);
-
-      print_current_goal_on_start(current_start, current_end);
-
+      h = get_relaxed_plan(&gplan_states[current_state], &current_end, current_state);
       printf("\n\n");
-      test++;
+      current_state++;
     }
 
 
