@@ -664,7 +664,7 @@ void print_state_formated( State S )
   if(0 < S.num_F){
     print_ft_name( S.F[i] );
   }
-  for ( i = 0; i < S.num_F; i++ ) {
+  for ( i = 1; i < S.num_F; i++ ) {
     printf(", ");
     print_ft_name( S.F[i] );
   }
@@ -771,16 +771,17 @@ void print_Fact( Fact *f )
     return;
   }
 
+/* REMOVE NOT-? */
   printf ("(");
-  printf("%s ", gpredicates[f->predicate]);
+  printf("%s", gpredicates[f->predicate]);
   for ( j=0; j<garity[f->predicate]; j++ ) {
     if ( f->args[j] >= 0 ) {
-      printf("%s", gconstants[(f->args)[j]]);
+      printf(" %s", gconstants[(f->args)[j]]);
     } else {
-      printf("x%d", DECODE_VAR( f->args[j] ));
+      printf(" x%d", DECODE_VAR( f->args[j] ));
     }
     if ( j < garity[f->predicate] - 1 ) {
-      printf(" ");
+      printf("");
     }
   }
   printf(")");
