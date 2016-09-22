@@ -225,9 +225,11 @@ Bool do_enforced_hill_climbing( State *start, State *end )
   if ( h == 0 ) {
     return TRUE;
   }
-  printf("\n\nCueing down from goal distance: %4d into depth ", h);
-  fflush(stdout);
-
+  if( gcmd_line.display_info >= 1 ){
+    printf("\n\nCueing down from goal distance: %4d into depth ", h);
+    fflush(stdout);
+  }
+  
   while ( h != 0 ) {
     if ( !search_for_better_state( &S, h, &S_, &h_ ) ) {
       return FALSE;
