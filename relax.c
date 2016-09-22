@@ -980,7 +980,7 @@ void activate_ft( int index, int time )
   }
 
 
-/* TEST */
+  /* TEST */
 
   void print_relaxed_plan( )
 
@@ -1012,21 +1012,15 @@ void activate_ft( int index, int time )
         break;
       }
       if ( hit_E ) {
-        if( time == 0){ /* Comma hacking */
-          for ( i = 0 ; i < gnum_ef_conn; i++ ) {
-            /* Print only ops in the relaxed plan. */
-            if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
-              print_op_name_formated( gef_conn[i].op );
-            }
-          }
+        /* Comma haking */
+        /* Print only ops in the relaxed plan. */
+        if ( gef_conn[0].level == time && gef_conn[0].in_plan ) {
+          print_op_name_formated( gef_conn[i].op );
         }
-        else{
-          for ( i = 0 ; i < gnum_ef_conn; i++ ) {
-            /* Print only ops in the relaxed plan. */
-            if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
-              printf(", ");
-              print_op_name_formated( gef_conn[i].op );
-            }
+        for ( i = 1 ; i < gnum_ef_conn; i++ ) {
+          if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
+            printf(", ");
+            print_op_name_formated( gef_conn[i].op );
           }
         }
       }
@@ -1039,17 +1033,25 @@ void activate_ft( int index, int time )
 
   void print_AddDel( ){
     int i;
-      for ( i = 0; i < gnum_ef_conn; i++ ) {
-        /* Print only ops in the relaxed plan. */
-        if ( gef_conn[i].in_plan ) {
-          print_AddList( gop_conn[gef_conn[i].op].action );
-        }
-      }
-      printf("\n");
-      for ( i = 0; i < gnum_ef_conn; i++ ) {
-        /* Print only ops in the relaxed plan. */
-        if ( gef_conn[i].in_plan ) {
-          print_DelList( gop_conn[gef_conn[i].op].action );
-        }
+    /* Print only ops in the relaxed plan. */
+    if ( 0 < gnum_ef_conn && gef_conn[0].in_plan ) {
+      print_AddList( gop_conn[gef_conn[0].op].action );
+    }
+    for ( i = 1; i < gnum_ef_conn; i++ ) {
+      if ( gef_conn[i].in_plan ) {
+        printf(", ");
+        print_AddList( gop_conn[gef_conn[i].op].action );
       }
     }
+    printf("\n");
+    if ( 0 < gnum_ef_conn && gef_conn[0].in_plan ) {
+      print_DelList( gop_conn[gef_conn[0].op].action );
+    }
+    for ( i = 1; i < gnum_ef_conn; i++ ) {
+      /* Print only ops in the relaxed plan. */
+      if ( gef_conn[i].in_plan ) {
+        printf(", ");
+        print_DelList( gop_conn[gef_conn[i].op].action );
+      }
+    }
+  }
