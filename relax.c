@@ -241,8 +241,6 @@ int get_1P_and_H( State *S, State *current_goals )
 
 }
 
-
-
 int get_1P( State *S, State *current_goals )
 
 {
@@ -260,14 +258,11 @@ int get_1P( State *S, State *current_goals )
     print_fixpoint_result();
   }
 
-  print_relaxed_plan();
-  print_AddDel();
   reset_fixpoint();
 
   return h;
 
 }
-
 
 
 void get_A( State *S )
@@ -982,6 +977,34 @@ void activate_ft( int index, int time )
 
   /* TEST */
 
+  int get_relaxed_plan( State *S, State *current_goals, int num_state )
+
+  {
+
+    int h, max;
+
+    source_to_dest( &lcurrent_goals, current_goals );
+
+    gevaluated_states++;
+
+    max = build_fixpoint( S );
+    h = extract_1P( max, FALSE );
+
+    if ( gcmd_line.display_info == 122 ) {
+      print_fixpoint_result();
+    }
+
+    print_relaxed_plan();
+    print_AddDel();
+    next_current_start(S, num_state);
+
+    reset_fixpoint();
+
+    return h;
+
+  }
+
+
   void print_relaxed_plan( )
 
   {
@@ -1087,19 +1110,19 @@ void activate_ft( int index, int time )
     }
   }
 
-  void next_current_start(State *start, int time){
+  void next_current_start(State *S, int num_state){
     int i, j;
     j = 0;
     Bool hit, hit_F;
-    State aux;
-    make_state(&aux, gnum_ft_conn);
-    aux.max_F = gnum_ft_conn;
+    make_state(S, gnum_ft_conn);
+    State new_start = *S;
+    new_start.max_F = gnum_ft_conn;
 
     while ( 1 ) {
       hit = FALSE;
       hit_F = FALSE;
       for ( i = 0; i < gnum_ft_conn; i++ ) {
-        if ( gft_conn[i].level == time ) {
+        if ( gft_conn[i].level == num_state ) {
           hit = TRUE;
           hit_F = TRUE;
           break;
@@ -1110,13 +1133,12 @@ void activate_ft( int index, int time )
       }
       if ( hit_F ) {
         for ( i = 0; i < gnum_ft_conn; i++ ) {
-          if ( gft_conn[i].level == time ) {
-            aux.F[j] = i;
+          if ( gft_conn[i].level == num_state ) {
+            new_start.F[j] = i;
             j++;
-            printf("%d\n", aux.F[j]);
+            printf("%d\n", new_start.F[j]);
           }
         }
       }
     }
-    source_to_dest(start, &aux);
   }

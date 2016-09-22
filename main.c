@@ -669,7 +669,7 @@ int main( int argc, char *argv[] )
     */
     compute_goal_agenda();
     int test = 0;
-    while(test < 1){
+    while(test < 7){
       /* make space in plan states info, and relax
       */
       for ( i = 0; i < MAX_PLAN_LENGTH + 1; i++ ) {
@@ -698,9 +698,8 @@ int main( int argc, char *argv[] )
       }
       print_state_formated(current_start);
       print_state_formated(current_end);
-      get_1P(&current_start, &current_end);
+      get_relaxed_plan(&current_start, &current_end, test);
 
-      next_current_start(&current_start, test);
       print_current_goal_on_start(current_start, current_end);
 
       printf("\n\n");
