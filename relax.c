@@ -987,20 +987,12 @@ void activate_ft( int index, int time )
   {
 
     int time, i;
-    Bool hit, hit_F, hit_E;
+    Bool hit, hit_E;
 
     time = 0;
     while ( 1 ) {
       hit = FALSE;
-      hit_F = FALSE;
       hit_E = FALSE;
-      for ( i = 0; i < gnum_ft_conn; i++ ) {
-        if ( gft_conn[i].level == time ) {
-          hit = TRUE;
-          hit_F = TRUE;
-          break;
-        }
-      }
       for ( i = 0; i < gnum_ef_conn; i++ ) {
         if ( gef_conn[i].level == time ) {
           hit = TRUE;
@@ -1014,22 +1006,33 @@ void activate_ft( int index, int time )
       if ( hit_E ) {
         /* Comma haking */
         /* Print only ops in the relaxed plan. */
-        i = 0;
-        while( i < gnum_ef_conn ){
-          if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
-            print_op_name_formated( gef_conn[i].op );
-            break;
+         if(time == 0){
+          i = 0;
+          while( i < gnum_ef_conn ){
+            if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
+              print_op_name_formated( gef_conn[i].op );
+              break;
+            }
+            i++;
           }
-          i++;
+          for ( i = i+1 ; i < gnum_ef_conn; i++ ) {
+            if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
+              printf(", ");
+              print_op_name_formated( gef_conn[i].op );
+            }
+          }
+          time++;
         }
-        for ( i = i+1 ; i < gnum_ef_conn; i++ ) {
-          if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
-            printf(", ");
-            print_op_name_formated( gef_conn[i].op );
+        else{
+          for ( i = 0; i < gnum_ef_conn; i++ ) {
+            if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
+              printf(", ");
+              print_op_name_formated( gef_conn[i].op );
+            }
           }
+        time++;
         }
       }
-      time++;
     }
     printf("\n");
     fflush( stdout );
@@ -1069,4 +1072,51 @@ void activate_ft( int index, int time )
         print_DelList( gop_conn[gef_conn[i].op].action );
       }
     }
+  }
+
+  void print_current_goal_on_start(State current_start, State current_end){
+    int i, j;
+    for ( i = 0; i < gnum_goal_agenda; i++ ) {
+      if ( i < gnum_goal_agenda - 1 ) {
+        for ( j = 0; j < current_start.num_F; j++ ) {
+          if( current_end.F[i] == current_start.F[j] ){
+            print_ft_name(current_start.F);
+          }
+        }
+      }
+    }
+  }
+
+  void next_current_start(State *start, int time){
+    int i, j;
+    j = 0;
+    Bool hit, hit_F;
+    State aux;
+    make_state(&aux, gnum_ft_conn);
+    aux.max_F = gnum_ft_conn;
+
+    while ( 1 ) {
+      hit = FALSE;
+      hit_F = FALSE;
+      for ( i = 0; i < gnum_ft_conn; i++ ) {
+        if ( gft_conn[i].level == time ) {
+          hit = TRUE;
+          hit_F = TRUE;
+          break;
+        }
+      }
+      if ( !hit ) {
+        break;
+      }
+      if ( hit_F ) {
+        for ( i = 0; i < gnum_ft_conn; i++ ) {
+          if ( gft_conn[i].level == time ) {
+            aux.F[j] = i;
+            j++;
+            printf("%d\n", aux.F[j]);
+          }
+        }
+      }
+    }
+    source_to_dest(start, &aux);
   }

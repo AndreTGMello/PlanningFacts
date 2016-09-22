@@ -668,36 +668,45 @@ int main( int argc, char *argv[] )
     * goal set into sequence of smaller sets, the goal agenda
     */
     compute_goal_agenda();
+    int test = 0;
+    while(test < 1){
+      /* make space in plan states info, and relax
+      */
+      for ( i = 0; i < MAX_PLAN_LENGTH + 1; i++ ) {
+        make_state( &(gplan_states[i]), gnum_ft_conn );
+        gplan_states[i].max_F = gnum_ft_conn;
+      }
+      make_state( &current_start, gnum_ft_conn );
+      current_start.max_F = gnum_ft_conn;
+      make_state( &current_end, gnum_ft_conn );
+      current_end.max_F = gnum_ft_conn;
+      initialize_relax();
 
-    /* make space in plan states info, and relax
-    */
-    for ( i = 0; i < MAX_PLAN_LENGTH + 1; i++ ) {
-      make_state( &(gplan_states[i]), gnum_ft_conn );
-      gplan_states[i].max_F = gnum_ft_conn;
-    }
-    make_state( &current_start, gnum_ft_conn );
-    current_start.max_F = gnum_ft_conn;
-    make_state( &current_end, gnum_ft_conn );
-    current_end.max_F = gnum_ft_conn;
-    initialize_relax();
+      source_to_dest( &(gplan_states[0]), &ginitial_state );
 
-    source_to_dest( &(gplan_states[0]), &ginitial_state );
+      source_to_dest( &current_start, &ginitial_state );
+      source_to_dest( &current_end, &(ggoal_agenda[0]) );
 
-    source_to_dest( &current_start, &ginitial_state );
-    source_to_dest( &current_end, &(ggoal_agenda[0]) );
-
-    /* PROBLEM: MULTIPLE INITIAL AND END STATES */
-    for ( i = 0; i < gnum_goal_agenda; i++ ) {
-      source_to_dest( &current_start, &(gplan_states[gnum_plan_ops]) );
-      if ( i < gnum_goal_agenda - 1 ) {
-        for ( j = 0; j < ggoal_agenda[i+1].num_F; j++ ) {
-          current_end.F[current_end.num_F++] = ggoal_agenda[i+1].F[j];
+      /* PROBLEM: MULTIPLE INITIAL AND END STATES */
+      for ( i = 0; i < gnum_goal_agenda; i++ ) {
+        source_to_dest( &current_start, &(gplan_states[gnum_plan_ops]) );
+        if ( i < gnum_goal_agenda - 1 ) {
+          for ( j = 0; j < ggoal_agenda[i+1].num_F; j++ ) {
+            current_end.F[current_end.num_F++] = ggoal_agenda[i+1].F[j];
+          }
         }
       }
+      print_state_formated(current_start);
+      print_state_formated(current_end);
+      get_1P(&current_start, &current_end);
+
+      next_current_start(&current_start, test);
+      print_current_goal_on_start(current_start, current_end);
+
+      printf("\n\n");
+      test++;
     }
-    print_state_formated(current_start);
-    print_state_formated(current_end);
-    get_1P(&current_start, &current_end);
+
 
     output_planner_info();
 
