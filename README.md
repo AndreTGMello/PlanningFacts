@@ -21,13 +21,13 @@ The expected ouput is a series of databases as defined by Yoon, Fern and Givan i
 Formatting is as follows:
 
 For each state in the solution set:
-1st line: Initial State Facts
-2nd line: Relaxed Plan (actions)
-3rd line: Delete List from the plan's actions
-4th line: Add List from the plan's actions
-5th line: Goal State Facts
-6th line: Facts both in the Initial State and the Goal State
-7th line: Blank
-Repeat
+*1st line: Initial State Facts
+*2nd line: Relaxed Plan (actions)
+*3rd line: Delete List from the plan's actions
+*4th line: Add List from the plan's actions
+*5th line: Goal State Facts
+*6th line: Facts both in the Initial State and the Goal State
+*7th line: Blank
+*Repeat
 
 When it's the case that no such information exists (e.g. no facts both in initial state and goal state), a blank line is printed, keeping the order of the information fixed.
