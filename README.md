@@ -8,7 +8,7 @@ Learning Heuristic Functions from Relaxed Plans (2006)
 <http://www.cs.orst.edu/%7Eafern/papers/icaps06.ps>
 
 This software was built on top of the FastForward (FF) planning algorithm, by Joerg Hoffmann.
-<https://fai.cs.uni-saarland.de/hoffmann/ff.html)>
+<https://fai.cs.uni-saarland.de/hoffmann/ff.html>
 
 ## Usage
 After downloading the project, simply run the make file to get acces to the runnable ff.
