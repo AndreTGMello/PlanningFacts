@@ -626,11 +626,11 @@ void print_AddList( Action *a )
     e = &(a->effects[j]);
     if(0 < e->num_adds){
       printf("a");
-      print_ft_name( e->adds[0] );
+      print_ft_name_formatted( e->adds[0] );
     }
     for ( i = 1; i < e->num_adds; i++ ) {
       printf(", a");
-      print_ft_name( e->adds[i] );
+      print_ft_name_formatted( e->adds[i] );
     }
   }
 
@@ -647,32 +647,40 @@ void print_DelList( Action *a )
     e = &(a->effects[j]);
     if(0 < e->num_adds){
       printf("d");
-      print_ft_name( e->dels[0] );
+      print_ft_name_formatted( e->dels[0] );
     }
     for ( i = 1; i < e->num_dels; i++ ) {
       printf(", d");
-      print_ft_name( e->dels[i] );
+      print_ft_name_formatted( e->dels[i] );
     }
   }
 }
 
-void print_state_formated( State S )
+void print_ft_name_formatted ( int index )
+
+{
+
+  print_Fact_formatted( &(grelevant_facts[index]) );
+
+}
+
+void print_state_formatted( State S )
 
 {
 
   int i;
   if(0 < S.num_F){
-    print_ft_name( S.F[i] );
+    print_ft_name_formatted( S.F[i] );
   }
   for ( i = 1; i < S.num_F; i++ ) {
     printf(", ");
-    print_ft_name( S.F[i] );
+    print_ft_name_formatted( S.F[i] );
   }
   printf("\n");
 
 }
 
-void print_op_name_formated( int index )
+void print_op_name_formatted( int index )
 
 {
 
@@ -698,13 +706,85 @@ void print_goal_states(State S){
   int i;
   if(0 < S.num_F){
     printf("g");
-    print_ft_name( S.F[i] );
+    print_ft_name_formatted( S.F[i] );
   }
   for ( i = 1; i < S.num_F; i++ ) {
     printf(", g");
-    print_ft_name( S.F[i] );
+    print_ft_name_formatted( S.F[i] );
   }
   printf("\n");
+}
+
+void print_Fact_formatted( Fact *f )
+
+{
+
+  int j;
+
+  if ( f->predicate == -3 ) {
+    printf("GOAL-REACHED");
+    return;
+  }
+
+  if ( f->predicate == -1 ) {
+    printf("=(");
+    for ( j=0; j<2; j++ ) {
+      if ( f->args[j] >= 0 ) {
+	printf("%s", gconstants[(f->args)[j]]);
+      } else {
+	printf("x%d", DECODE_VAR( f->args[j] ));
+      }
+      if ( j < 1) {
+	printf(" ");
+      }
+    }
+    printf(")");
+    return;
+  }
+
+  if ( f->predicate == -2 ) {
+    printf("!=(");
+    for ( j=0; j<2; j++ ) {
+      if ( f->args[j] >= 0 ) {
+	printf("%s", gconstants[(f->args)[j]]);
+      } else {
+	printf("x%d", DECODE_VAR( f->args[j] ));
+      }
+      if ( j < 1) {
+	printf(" ");
+      }
+    }
+    printf(")");
+    return;
+  }
+
+  printf ("(");
+  printf("%s", gpredicates[f->predicate]);
+  for ( j=0; j<garity[f->predicate]; j++ ) {
+    if( j == 0){
+    if ( f->args[j] >= 0 ) {
+      printf(" %s", gconstants[(f->args)[j]]);
+    } else {
+      printf(" x%d", DECODE_VAR( f->args[j] ));
+    }
+    if ( j < garity[f->predicate] - 1 ) {
+      printf("");
+    }
+  }
+  else{
+    if ( f->args[j] >= 0 ) {
+      printf(", %s", gconstants[(f->args)[j]]);
+    } else {
+      printf(", x%d", DECODE_VAR( f->args[j] ));
+    }
+    if ( j < garity[f->predicate] - 1 ) {
+      printf("");
+    }
+  }
+
+  }
+  printf(")");
+
 }
 /* TEST */
 

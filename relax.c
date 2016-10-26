@@ -1031,7 +1031,7 @@ void activate_ft( int index, int time )
           i = 0;
           while( i < gnum_ef_conn ){
             if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
-              print_op_name_formated( gef_conn[i].op );
+              print_op_name_formatted( gef_conn[i].op );
               break;
             }
             i++;
@@ -1039,7 +1039,7 @@ void activate_ft( int index, int time )
           for ( i = i+1 ; i < gnum_ef_conn; i++ ) {
             if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
               printf(", ");
-              print_op_name_formated( gef_conn[i].op );
+              print_op_name_formatted( gef_conn[i].op );
             }
           }
           time++;
@@ -1048,7 +1048,7 @@ void activate_ft( int index, int time )
           for ( i = 0; i < gnum_ef_conn; i++ ) {
             if ( gef_conn[i].level == time && gef_conn[i].in_plan ) {
               printf(", ");
-              print_op_name_formated( gef_conn[i].op );
+              print_op_name_formatted( gef_conn[i].op );
             }
           }
           time++;
@@ -1105,7 +1105,7 @@ void activate_ft( int index, int time )
       while ( j < current_start.num_F ) {
         if( current_end.F[i] == current_start.F[j] ){
           printf("c");
-          print_ft_name(current_start.F[j]);
+          print_ft_name_formatted(current_start.F[j]);
           stop = 0;
           break;
         }
@@ -1117,7 +1117,7 @@ void activate_ft( int index, int time )
       for ( j = 0; j < current_start.num_F; j++ ) {
         if( current_end.F[i] == current_start.F[j] ){
           printf(", c");
-          print_ft_name(current_start.F[j]);
+          print_ft_name_formatted(current_start.F[j]);
           break;
         }
       }

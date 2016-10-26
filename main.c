@@ -718,7 +718,7 @@ int main( int argc, char *argv[] )
     int current_state = 0;
     int heuristic_value = -1;
     while(heuristic_value != 0){
-      print_state_formated(gplan_states[current_state]);
+      print_state_formatted(gplan_states[current_state]);
       heuristic_value = get_relaxed_plan(&gplan_states[current_state], &current_end, current_state);
       print_goal_states(current_end);
       print_current_goal_on_start(gplan_states[current_state], current_end);
