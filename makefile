@@ -6,12 +6,12 @@
 
 ####### FLAGS
 
-TYPE	= 
-ADDONS	= 
+TYPE	=
+ADDONS	=
 
 CC      = gcc
 
-CFLAGS	= -O6 -Wall -g -ansi $(TYPE) $(ADDONS) 
+CFLAGS	= -O6 -Wall -g -ansi $(TYPE) $(ADDONS)
 # -g -pg
 
 LIBS    = -lm
@@ -24,10 +24,10 @@ PDDL_PARSER_SRC	= scan-fct_pddl.tab.c \
 	scan-ops_pddl.tab.c \
 	scan-probname.tab.c \
 	lex.fct_pddl.c \
-	lex.ops_pddl.c 
+	lex.ops_pddl.c
 
 PDDL_PARSER_OBJ = scan-fct_pddl.tab.o \
-	scan-ops_pddl.tab.o 
+	scan-ops_pddl.tab.o
 
 
 SOURCES 	= main.c \
@@ -55,8 +55,8 @@ OBJECTS 	= $(SOURCES:.c=.o)
 ####### Build rules
 
 
-ff: $(OBJECTS) $(PDDL_PARSER_OBJ)
-	$(CC) -o ff $(OBJECTS) $(PDDL_PARSER_OBJ) $(CFLAGS) $(LIBS)
+pf: $(OBJECTS) $(PDDL_PARSER_OBJ)
+	$(CC) -o pf $(OBJECTS) $(PDDL_PARSER_OBJ) $(CFLAGS) $(LIBS)
 
 # pddl syntax
 scan-fct_pddl.tab.c: scan-fct_pddl.y lex.fct_pddl.c
@@ -78,7 +78,7 @@ clean:
         \#*\# $(RES_PARSER_SRC) $(PDDL_PARSER_SRC)
 
 veryclean: clean
-	rm -f ff H* J* K* L* O* graph.* *.symbex gmon.out \
+	rm -f pf H* J* K* L* O* graph.* *.symbex gmon.out \
 	$(PDDL_PARSER_SRC) \
 	lex.fct_pddl.c lex.ops_pddl.c lex.probname.c \
 	*.output

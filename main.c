@@ -57,7 +57,7 @@
 
 
 
-#include "ff.h"
+#include "pf.h"
 
 #include "memory.h"
 #include "output.h"
@@ -523,7 +523,7 @@ int main( int argc, char *argv[] )
   */
   if ( !gcmd_line.ops_file_name ||
     !gcmd_line.fct_file_name ) {
-      fprintf(stdout, "\nff: two input files needed\n\n");
+      fprintf(stdout, "\npf: two input files needed\n\n");
       ff_usage();
       exit( 1 );
     }
@@ -543,7 +543,7 @@ int main( int argc, char *argv[] )
     /* domain file (ops)
     */
     if ( gcmd_line.display_info >= 1 ) {
-      printf("\nff: parsing domain file");
+      printf("\npf: parsing domain file");
     }
     /* it is important for the pddl language to define the domain before
     * reading the problem
@@ -552,7 +552,7 @@ int main( int argc, char *argv[] )
     /* problem file (facts)
     */
     if ( gcmd_line.display_info >= 1 ) {
-      printf(" ... done.\nff: parsing problem file");
+      printf(" ... done.\npf: parsing problem file");
     }
     load_fct_file( fct_file );
     if ( gcmd_line.display_info >= 1 ) {
@@ -566,7 +566,7 @@ int main( int argc, char *argv[] )
     /* last step of parsing: see if it's an ADL domain!
     */
     if ( !make_adl_domain() ) {
-      printf("\nff: this is not an ADL problem!");
+      printf("\npf: this is not an ADL problem!");
       printf("\n    can't be handled by this version.\n\n");
       exit( 1 );
     }
@@ -840,7 +840,7 @@ int main( int argc, char *argv[] )
 
     {
 
-      printf("\nusage of ff:\n");
+      printf("\nusage of pf:\n");
 
       printf("\nOPTIONS   DESCRIPTIONS\n\n");
       printf("-p <str>    path for operator and fact file\n");
@@ -933,7 +933,7 @@ int main( int argc, char *argv[] )
               sscanf( *argv, "%d", &gcmd_line.debug );
               break;
               default:
-              printf( "\nff: unknown option: %c entered\n\n", option );
+              printf( "\npf: unknown option: %c entered\n\n", option );
               return FALSE;
             }
           } else {

@@ -12,10 +12,10 @@ This software was built on top of the FastForward (FF) planning algorithm, by Jo
 <https://fai.cs.uni-saarland.de/hoffmann/ff.html>
 
 ## Usage
-After downloading the project, simply run the make file to get acces to the runnable ff.
+After downloading the project, simply run the make file to get acces to the runnable pf.
 Usage is simillar to the FF algorithm.
 Use parameters -o to define the domain file and -f to define the problema file as such:
-./ff -o domain_file -f problem_file
+./pf -o domain_file -f problem_file
 
 ## Output
 The expected ouput is a series of databases as defined by Yoon, Fern and Givan in the aforementioned papers.
