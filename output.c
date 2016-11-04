@@ -645,7 +645,7 @@ void print_DelList( Action *a )
 
   for ( j = 0; j < a->num_effects; j++ ){
     e = &(a->effects[j]);
-    if(0 < e->num_adds){
+    if(0 < e->num_dels){
       printf("d");
       print_ft_name_formatted( e->dels[0] );
     }
