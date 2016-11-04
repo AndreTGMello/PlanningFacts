@@ -591,7 +591,7 @@ int fct_pddl_flex_debug = 0;
 char *fct_pddltext;
 #line 1 "lex-fct_pddl.l"
 #line 2 "lex-fct_pddl.l"
-#include "ff.h"
+#include "pf.h"
 #include "parse.h"
   
   /* default fct_pddlwrap function - always treat EOF as an EOF  */

@@ -591,7 +591,7 @@ int ops_pddl_flex_debug = 0;
 char *ops_pddltext;
 #line 1 "lex-ops_pddl.l"
 #line 2 "lex-ops_pddl.l"
-#include "ff.h"
+#include "pf.h"
 #include "parse.h"
 
 /* default ops_pddlwrap function - always treat EOF as an EOF  */

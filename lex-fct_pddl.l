@@ -1,5 +1,5 @@
 %{
-#include "ff.h"
+#include "pf.h"
 #include "parse.h"
   
   /* default yywrap function - always treat EOF as an EOF  */
